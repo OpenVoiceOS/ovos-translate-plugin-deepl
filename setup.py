@@ -75,7 +75,7 @@ setup(
         'Programming Language :: Python :: 3.11',
     ],
     entry_points={
-        'plugin.lang.translate': TX_ENTRY_POINT,
-        'plugin.lang.detect': DETECT_ENTRY_POINT
+        'neon.plugin.lang.translate': TX_ENTRY_POINT,
+        'neon.plugin.lang.detect': DETECT_ENTRY_POINT
     }
 )
