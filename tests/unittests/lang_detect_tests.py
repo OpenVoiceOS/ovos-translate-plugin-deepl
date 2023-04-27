@@ -1,11 +1,12 @@
 import os
+from os.path import dirname, realpath
 import sys
 import unittest
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.append(dirname(dirname(dirname(realpath(__file__)))))
 from ovos_translate_plugin_deepl import DeepLDetector
 
-API_KEY = os.environ["API_KEY"]
+API_KEY = os.getenv("API_KEY")
 
 
 class LangDetectTests(unittest.TestCase):
