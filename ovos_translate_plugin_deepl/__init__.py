@@ -5,12 +5,9 @@ from typing import Union, List
 
 
 class DeepLTranslator(LanguageTranslator):
-    provider="deepl"
-
     def __init__(self, api_key=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if api_key:
-            self.api_key = api_key
+        self.api_key = api_key or self.config.get("api_key")
         self.translator = Translator(self.api_key)
         self.boost = False
     
@@ -123,13 +120,9 @@ class DeepLTranslator(LanguageTranslator):
 
 
 class DeepLDetector(LanguageDetector):
-    provider="deepl"
-
     def __init__(self, api_key=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if api_key:
-            self.api_key = api_key
-        self.translator = Translator(self.api_key)
+        self.translator = Translator(api_key or self.config.get("api_key"))
 
     def detect(self, text):
         """

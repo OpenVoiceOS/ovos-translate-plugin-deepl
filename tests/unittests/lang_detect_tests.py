@@ -5,11 +5,13 @@ import unittest
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from ovos_translate_plugin_deepl import DeepLDetector
 
+API_KEY = os.environ["API_KEY"]
+
 
 class LangDetectTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.detector = DeepLDetector()
+        cls.detector = DeepLDetector(API_KEY)
 
     def test_detector_valid_en(self):
         lang = self.detector.detect("hallo zusammen")

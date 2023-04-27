@@ -22,6 +22,8 @@ jobs:
       matrix:
         python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
     runs-on: ubuntu-latest
+    env:
+      API_KEY: ${{secrets.DL_API_KEY}}
     steps:
       - uses: actions/checkout@v2
       - name: Set up python ${{ matrix.python-version }}
@@ -33,13 +35,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements/requirements.txt
           pip install -r requirements/test_requirements.txt
-      - name: Get Credential
-        run: |
-            mkdir -p ~/.config/mycroft
-            echo "{\"translate\":{\"deepl\":{\"key\":\"$API_KEY\"}}}" > ~/.config/mycroft/mycroft.conf
-        shell: bash
-        env:
-          API_KEY: ${{secrets.api_key}}
       - name: Test Language Detector
         run: |
           pytest tests/unittests/lang_detect_tests.py --doctest-modules --junitxml=tests/lang-detect-test-results.xml
@@ -48,7 +43,6 @@ jobs:
         with:
           name: lang-detect-test-results
           path: tests/lang-detect-test-results.xml
-
       - name: Test Language Translator
         run: |
           pytest tests/unittests/lang_translate_tests.py --doctest-modules --junitxml=tests/lang-translate-test-results.xml

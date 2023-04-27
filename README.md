@@ -6,9 +6,34 @@ In order to work, you'll need an API-key, issued [here](https://www.deepl.com/pr
 
 ## Usage
 
-(General)
+### OVOS
 
-translation
+The plugin is used in a wider context to translate utterances/texts on demand (e.g. from a [UniversalSkill]())
+
+_Configuration_
+```python
+# add this to one of the configuration files (eg ~./config/mycroft/mycroft.conf)
+
+"language": {
+    "detection_module": "deepl_detection_plug",
+    "translation_module": "deepl_translate_plug",
+    "internal": <lang>,                                # default target lang being used unless passed
+    "deepl_detection_plug": {
+        "api_key": "<API_KEY>"
+    },
+    "deepl_translation_plug": {
+        "api_key": "<API_KEY>"
+    }
+}
+
+```
+
+### General
+
+Using this module standalone, the API key has to be passed
+
+
+**Translation**
 ```python
 from ovos_translate_plugin_deepl import DeepLTranslator
 
@@ -18,39 +43,39 @@ translator.translate("hallo zusammen", "en-us")  # auto detect source lang
 translator.translate("hallo zusammen", "en-us", "de")  # define source lang; both languages can be passed ISO 639-1 (2-digit) /ISO 3166-1 (4-digit),
                                                        # appropriate (available) will be chosen
 ```
-for batch translation just pass the list
+_for batch translation just pass the list_
 ```python
 translator.translate(["hallo zusammen", "das ist ein test"], "en-us")
 # ['hello together', 'this is a test'] 
 ```
-to get the supported _target_ language codes
+_to get the supported **target** language codes_
 ```python
 translator.available_languages
 # {'CS', 'EL', 'DA', 'SL', 'UK', 'PT-PT', 'HU', 'ZH', 'KO', 'NB', 'SK', 'FR', 'LV', 'DE', 'ES', 'TR', 'NL', 'FI', 'IT', 'BG', 'PT-BR', 'ID', 'ET', 'RU', 'PL', 'SV', 'LT', 'EN-US', 'JA', 'RO', 'EN-GB'}
 ```
-to get the supported _source_ language codes
+_to get the supported **source** language codes_
 ```python
 translator.source_languages
 # {'BG', 'CS', 'DA', 'DE', 'EL', 'EN', 'ES', 'ET', 'FI', 'FR', 'HU', 'ID', 'IT', 'JA', 'KO', 'LT', 'LV', 'NB', 'NL', 'PL', 'PT', 'RO', 'RU', 'SK', 'SL', 'SV', 'TR', 'UK', 'ZH'}
 ```
-format a _target_ langcode relative to the service capabilities
+_format a **target** langcode relative to the service capabilities_
 ```python
 translator.get_langcode("se-fi")  # Sami (Northern) (Finland)
 # 'FI'
 ```
-format a _source_ langcode (as some of them are joined e.g PT-BR/PT-PT (target) -> PT (source))
+_format a **source** langcode (as some of them are joined e.g PT-BR/PT-PT (target) -> PT (source))_
 ```python
 translator.get_langcode("pt-br", source=True)  # Portuguese (Brasilian)
 # 'PT'
 ```
-this can also been used to check availability
+_this can also been used to check availability_
 ```python
 translator.get_langcode("xx-xx")
 # None
 ```
 _NOTE: This is checked internally before every translation, so just an assurance up front_
 
-to check in which languages a text can be translated to, you can also either
+_to check in which languages a text can be translated to, you can also either_
 ```python
 # if lang is known
 translator.supported_translations(<langcode>)
@@ -60,7 +85,7 @@ translator.supported_translations(<langcode>)
 translator.supported_translations(text=<text>)
 ```
 
-Detection
+**Detection**
 ```python
 from ovos_translate_plugin_deepl import DeepLDetector
 
@@ -68,44 +93,8 @@ detector = DeepLDetector(<API_KEY>)
 detector.detect("This is a test")
 # en
 ```
-get detectable source languages
+_get detectable source languages_
 ```python
 detector.available_languages
 # {'BG', 'CS', 'DA', 'DE', 'EL', 'EN', 'ES', 'ET', 'FI', 'FR', 'HU', 'ID', 'IT', 'JA', 'KO', 'LT', 'LV', 'NB', 'NL', 'PL', 'PT', 'RO', 'RU', 'SK', 'SL', 'SV', 'TR', 'UK', 'ZH'}
-```
-
-Coniguration
-
-Work in progress
-
-Besides passing the API key, it is possible to store the key persistently and initiate the Translator/Detector without.
-
-```json
-# ~./config/mycroft/mycroft.conf
-{
-    "language": {
-        "deepl": {
-            "key": "<API_KEY>"
-        }
-    }
-}
-```
-
-(OVOS)
-
-Work in progress
-
-The Module is used in a wider context to translate utterances/texts on demand (e.g. in a [UniversalSkill]())
-
-```json
-# ~./config/mycroft/mycroft.conf
-{
-    "language": {
-        "detection_module": "deepl_detection_plug",
-        "translation_module": "deepl_translate_plug",
-        "deepl": {
-            "key": "<API_KEY>"
-        }
-    }
-}
 ```

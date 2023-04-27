@@ -5,11 +5,13 @@ import unittest
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from ovos_translate_plugin_deepl import DeepLTranslator
 
+API_KEY = os.environ["API_KEY"]
+
 
 class LangTranslateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.translator = DeepLTranslator()
+        cls.translator = DeepLTranslator(API_KEY)
 
     def test_translate_spec_input(self):
         translated = self.translator.translate("hello", "es", "en")
