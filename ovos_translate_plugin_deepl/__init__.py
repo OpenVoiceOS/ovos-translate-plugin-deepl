@@ -14,7 +14,7 @@ class DeepLTranslator(LanguageTranslator):
         self.translator = Translator(self.api_key)
         self.boost = False
     
-    def get_langcode(self, code: str) -> str:
+    def get_langcode(self, code: str, source=False) -> str:
         """
         Formats the langcode appropriately, given the
         service capabilities. This is done before every translation,
@@ -35,12 +35,12 @@ class DeepLTranslator(LanguageTranslator):
         # search for "pt-br", "br", "pt"
         codes = [code]
         codes.extend([c for c in reversed(code.split("-")) if c not in codes])
-        available = self.available_languages
+        available = self.available_languages if not source else \
+                    self.source_languages
         for code in codes:
             if code in available:
                 return code
         return None
-
 
     def translate(self,
                   text: Union[str, List[str]],
@@ -61,10 +61,7 @@ class DeepLTranslator(LanguageTranslator):
         if self.boost and not source:
             source = self.default_language
         target = self.get_langcode(target or self.internal_language)
-        source = self.get_langcode(source)
-
-        if source in ("EN-GB", "EN-US"):
-            source = "EN"
+        source = self.get_langcode(source, source=True)
 
         if not text or not target:
             return ""
@@ -81,12 +78,23 @@ class DeepLTranslator(LanguageTranslator):
     @property
     def available_languages(self) -> set:
         """
-        The available languages with the service
+        The available target languages with the service
 
         Returns:
-            set: available languages as a set of langcodes
+            set: languages as a set of langcodes
         """
         langs = self.translator.get_target_languages()
+        return set([lang.code for lang in langs])
+    
+    @property
+    def source_languages(self) -> set:
+        """
+        The available source languages with the service
+
+        Returns:
+            set: languages as a set of langcodes
+        """
+        langs = self.translator.get_source_languages()
         return set([lang.code for lang in langs])
     
     def supported_translations(self,
@@ -140,10 +148,10 @@ class DeepLDetector(LanguageDetector):
     @property
     def available_languages(self) -> set:
         """
-        The available languages that can be detected
+        The available source languages that can be detected
 
         Returns:
             set: available languages as a set of langcodes
         """
-        langs = self.translator.get_target_languages()
+        langs = self.translator.get_source_languages()
         return set([lang.code for lang in langs])
