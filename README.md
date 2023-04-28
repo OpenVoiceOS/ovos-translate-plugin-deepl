@@ -17,7 +17,7 @@ _Configuration_
 "language": {
     "detection_module": "deepl_detection_plug",
     "translation_module": "deepl_translate_plug",
-    "internal": <lang>,                                # default target lang being used unless passed
+    "internal": <lang>,                                # default target lang being used unless passed as arg
     "deepl_detection_plug": {
         "api_key": "<API_KEY>"
     },
@@ -37,7 +37,7 @@ Using this module standalone, the API key has to be passed
 ```python
 from ovos_translate_plugin_deepl import DeepLTranslator
 
-translator = DeepLTranslator(<API_KEY>)
+translator = DeepLTranslator({"api_key": <API_KEY>})
 translator.translate("hallo zusammen", "en-us")  # auto detect source lang
 # 'hello together'
 translator.translate("hallo zusammen", "en-us", "de")  # define source lang; both languages can be passed ISO 639-1 (2-digit) /ISO 3166-1 (4-digit),
@@ -89,7 +89,7 @@ translator.supported_translations(text=<text>)
 ```python
 from ovos_translate_plugin_deepl import DeepLDetector
 
-detector = DeepLDetector(<API_KEY>)
+detector = DeepLDetector({"api_key": <API_KEY>})
 detector.detect("This is a test")
 # en
 ```

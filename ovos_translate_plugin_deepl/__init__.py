@@ -1,13 +1,13 @@
 from ovos_plugin_manager.templates.language import LanguageDetector,\
     LanguageTranslator
-from deepl import Translator, TextResult
+from deepl import Translator
 from typing import Union, List
 
 
 class DeepLTranslator(LanguageTranslator):
-    def __init__(self, api_key=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.api_key = api_key or self.config.get("api_key")
+        self.api_key = self.config.get("api_key")
         self.translator = Translator(self.api_key)
         self.boost = False
     
@@ -120,9 +120,9 @@ class DeepLTranslator(LanguageTranslator):
 
 
 class DeepLDetector(LanguageDetector):
-    def __init__(self, api_key=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.translator = Translator(api_key or self.config.get("api_key"))
+        self.translator = Translator(self.config.get("api_key"))
 
     def detect(self, text):
         """
