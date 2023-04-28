@@ -21,7 +21,7 @@ _Configuration_
     "deepl_detection_plug": {
         "api_key": "<API_KEY>"
     },
-    "deepl_translation_plug": {
+    "deepl_translate_plug": {
         "api_key": "<API_KEY>"
     }
 }
