@@ -1,5 +1,17 @@
 name: Run License Tests
 on:
+  pull_request:
+    branches:
+      - dev
+    paths-ignore:
+      - 'ovos_translate_plugin_deepl/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - '.github/**'
+      - '.gitignore'
+      - 'CHANGELOG.md'
+      - 'MANIFEST.in'
+      - 'README.md'
   workflow_dispatch:
 
 jobs:
