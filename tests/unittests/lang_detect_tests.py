@@ -12,7 +12,7 @@ API_KEY = os.getenv("API_KEY")
 class LangDetectTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.detector = DeepLDetector(API_KEY)
+        cls.detector = DeepLDetector({"api_key": API_KEY})
 
     def test_detector_valid_en(self):
         lang = self.detector.detect("hallo zusammen")

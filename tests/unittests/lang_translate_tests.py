@@ -12,7 +12,7 @@ API_KEY = os.getenv("API_KEY")
 class LangTranslateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.translator = DeepLTranslator(API_KEY)
+        cls.translator = DeepLTranslator({"api_key": API_KEY})
 
     def test_translate_spec_input(self):
         translated = self.translator.translate("hello", "es", "en")
