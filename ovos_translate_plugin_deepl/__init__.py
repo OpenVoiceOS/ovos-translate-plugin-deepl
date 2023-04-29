@@ -10,6 +10,9 @@ class DeepLTranslator(LanguageTranslator):
         self.api_key = self.config.get("api_key")
         self.translator = Translator(self.api_key)
         self.boost = False
+
+        # availability check
+        self.translator.get_usage()
     
     def get_langcode(self, code: str, source=False) -> str:
         """
@@ -123,6 +126,9 @@ class DeepLDetector(LanguageDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.translator = Translator(self.config.get("api_key"))
+
+        # availability check
+        self.translator.get_usage()
 
     def detect(self, text):
         """
