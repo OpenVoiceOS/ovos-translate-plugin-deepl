@@ -1,7 +1,11 @@
-from ovos_plugin_manager.templates.language import LanguageDetector,\
-    LanguageTranslator
-from deepl import Translator
 from typing import Union, List
+
+from deepl import Translator
+from ovos_utils.log import LOG
+from ovos_plugin_manager.templates.language import (
+    LanguageDetector,
+    LanguageTranslator
+)
 
 
 class DeepLTranslator(LanguageTranslator):
@@ -79,10 +83,15 @@ class DeepLTranslator(LanguageTranslator):
                                             source_lang=source,
                                             target_lang=target)
 
+        source = source or ""
         if isinstance(tx, list):
-            return [t.text for t in tx]
+            translations = [t.text.strip() for t in tx]
+            LOG.debug(f"Batch translation ({source}->{target}): {translations}")
+            return translations
         
-        return tx.text.strip()
+        translation = tx.text.strip()
+        LOG.debug(f"Translation ({source}->{target}): {translation}")
+        return translation
     
     @property
     def available_languages(self) -> set:
@@ -151,7 +160,10 @@ class DeepLDetector(LanguageDetector):
         """
         tx = self.translator.translate_text(text,
                                             target_lang="en-us")
-        return tx.detected_source_lang.lower() or self.default_language
+        lang = tx.detected_source_lang.lower()
+        if lang:
+            LOG.debug(f"Language ({lang}) detected") 
+        return lang or self.default_language
     
     @property
     def available_languages(self) -> set:
