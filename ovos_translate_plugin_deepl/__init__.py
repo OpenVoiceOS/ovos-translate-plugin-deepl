@@ -32,14 +32,23 @@ class DeepLTranslator(LanguageTranslator):
             return None
 
         code = code.upper()
-        # search for "pt-br", "br", "pt"
-        codes = [code]
-        codes.extend([c for c in reversed(code.split("-")) if c not in codes])
         available = self.available_languages if not source else \
                     self.source_languages
-        for code in codes:
-            if code in available:
-                return code
+        
+        if len(code) == 2:
+            for acode in available:
+                if "-" in acode and acode.endswith(code):
+                    return acode
+            for acode in available:
+                if acode.startswith(code):
+                    return acode
+        else:
+            # search for "pt-br", "br", "pt"
+            codes = [code]
+            codes.extend([c for c in reversed(code.split("-")) if c not in codes])
+            for code in codes:
+                if code in available:
+                    return code
         return None
 
     def translate(self,
