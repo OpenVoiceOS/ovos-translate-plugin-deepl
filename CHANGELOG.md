@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/tree/HEAD)
+## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/tree/V0.0.0a2) (2023-04-30)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/compare/V0.0.0a1...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/compare/V0.0.0a1...V0.0.0a2)
 
 **Merged pull requests:**
 
