@@ -8,7 +8,6 @@ from ovos_translate_plugin_deepl import DeepLDetector
 
 API_KEY = os.getenv("API_KEY")
 
-
 class LangDetectTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

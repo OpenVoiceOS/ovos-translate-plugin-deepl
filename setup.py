@@ -59,6 +59,9 @@ setup(
     license='Apache-2.0',
     packages=['ovos_translate_plugin_deepl'],
     install_requires=required("requirements/requirements.txt"),
+    extras_require={
+        "test": required("requirements/test_requirements.txt")
+    },
     package_data={'': package_files('ovos_translate_plugin_deepl')},
     include_package_data=True,
     classifiers=[
