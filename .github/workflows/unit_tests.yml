@@ -46,21 +46,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements/requirements.txt
-          pip install -r requirements/test_requirements.txt
-      - name: Test Language Detector
+          pip install -e .[test]
+      - name: Perform unittests
         run: |
-          pytest tests/unittests/lang_detect_tests.py --doctest-modules --junitxml=tests/lang-detect-test-results.xml
-      - name: Upload language detector test results
-        uses: actions/upload-artifact@v2
+          pytest --cov=ovos_translate_plugin_deepl --cov-report xml test/unittests/
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
         with:
-          name: lang-detect-test-results
-          path: tests/lang-detect-test-results.xml
-      - name: Test Language Translator
-        run: |
-          pytest tests/unittests/lang_translate_tests.py --doctest-modules --junitxml=tests/lang-translate-test-results.xml
-      - name: Upload language translator test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: lang-translate-test-results
-          path: tests/lang-translate-test-results.xml
+            token: ${{secrets.CODECOV_TOKEN}} 
+            flags: unittests
