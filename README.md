@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/OpenVoiceOS/ovos-translate-plugin-deepl/branch/dev/graph/badge.svg?token=TOViE9yLEg)](https://codecov.io/github/OpenVoiceOS/ovos-translate-plugin-deepl)
+
 # OVOS Translator Module (DeepL)
 
 Language Plugin for [DeepL](https://www.deepl.com/translator) language detection and translation
