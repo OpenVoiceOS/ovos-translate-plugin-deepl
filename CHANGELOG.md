@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/tree/HEAD)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/compare/V0.0.0...HEAD)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/compare/V0.0.1a1...HEAD)
+
+**Merged pull requests:**
+
+- add coverage badge [\#4](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/pull/4) ([emphasize](https://github.com/emphasize))
+
+## [V0.0.1a1](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/tree/V0.0.1a1) (2023-05-08)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl/compare/V0.0.0...V0.0.1a1)
 
 **Merged pull requests:**
 
